@@ -12,7 +12,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Welcome to advent of code!")
 	f, err := os.Open("./day1PuzzleInput.txt")
 	if err != nil {
 		log.Fatal()
@@ -37,8 +36,18 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
-	// fmt.Println(listComparison(list1, list2)) // Part 1
-	fmt.Println(similarityScore(list1, list2)) // Part 2
+	fmt.Println(`
+              _                 _            __    _____          _        _____                __ 
+     /\      | |               | |          / _|  / ____|        | |      |  __ \              /_ |
+    /  \   __| |_   _____ _ __ | |_    ___ | |_  | |     ___   __| | ___  | |  | | __ _ _   _   | |
+   / /\ \ / _| \ \ / / _ \ '_ \| __|  / _ \|  _| | |    / _ \ / _| |/ _ \ | |  | |/ _| | | | |  | |
+  / ____ \ (_| |\ V /  __/ | | | |_  | (_) | |   | |___| (_) | (_| |  __/ | |__| | (_| | |_| |  | |
+ /_/    \_\__,_| \_/ \___|_| |_|\__|  \___/|_|    \_____\___/ \__,_|\___| |_____/ \__,_|\__, |  |_|
+                                                                                         __/ |     
+                                                                                        |___/      
+	`)
+	fmt.Printf("Part 1 Answer: %v", listComparison(list1, list2))          // Part 1
+	fmt.Printf("\nPart 2 Answer: %v\n", similarityScore(list1, list2)) // Part 2
 }
 
 // Part 1
@@ -66,15 +75,12 @@ func similarityScore(list1 []int, list2 []int) int64 {
 	var res int64
 	seenInList2 := map[int]int{}
 	for _, v := range list2 {
-		fmt.Println(v)
 		if _, ok := seenInList2[v]; ok {
-			fmt.Printf("Value: %v", v)
 			seenInList2[v] += 1
 		} else {
 			seenInList2[v] = 1
 		}
 	}
-	fmt.Println(seenInList2)
 	for _, list1Value := range list1 {
 		if _, ok := seenInList2[list1Value]; ok {
 			res += int64(list1Value) * int64(seenInList2[list1Value])
